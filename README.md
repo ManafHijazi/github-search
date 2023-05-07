@@ -23,6 +23,11 @@ This will start the app at http://localhost:3000.
 # Production
 
 - Run npm run build to build the app for production.
+
+```sh
+npm run build
+```
+
 - Run npm start to start the production server.
 - Navigate to http://localhost:3000 to view the app.
 
@@ -69,7 +74,7 @@ This app is useing Cypress for unit tests:
 
 - To run these test run the following command:
 
-````sh
+```sh
 npm run test
 ```
 
@@ -103,4 +108,7 @@ For more information on deploying Next.js apps, see the Next.js documentation.
 This project was built using the new features of Next.js 13. If you are running a lower version of Next.js, you may encounter issues or missing functionality. Please ensure that you have upgraded to the latest version of Next.js before attempting to run this project.
 
 To upgrade Next.js, please follow the official documentation at https://nextjs.org/docs/upgrading.
-````
+
+```
+
+```
