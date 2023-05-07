@@ -81,7 +81,7 @@ NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 
 # Testing
 
-This app is useing Cypress for unit tests:
+This app is using Cypress for unit tests:
 
 - To run these tests run the following command:
 
