@@ -48,7 +48,10 @@ axios.interceptors.request.use(
       allPendingRequestsRecord.push({ id: getUniqueId(configurations), cancel });
     });
 
-    configurationsLocal.headers['Authorization'] = `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`;
+    if (process.env.NEXT_PUBLIC_GITHUB_TOKEN !== 'YOUR_TOKEN')
+      configurationsLocal.headers[
+        'Authorization'
+      ] = `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`;
 
     return configurationsLocal;
   },

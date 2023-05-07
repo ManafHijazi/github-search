@@ -30,10 +30,12 @@ This will start the app at http://localhost:3000.
 
 Create a .env file in the root directory of the project and add the environment variables.
 
+(This step is optional if you want to prevent the time out request error to occure too much )
+
 Example:
 
 ```sh
-NEXT_PUBLIC_GITHUB_TOKEN=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
+NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 ```
 
 # Adding new environment
