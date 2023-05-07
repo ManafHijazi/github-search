@@ -30,6 +30,10 @@ yarn-error.log*
 # env files
 .env
 
+# test files
+/cypress/screenshots
+/cypress/videos
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

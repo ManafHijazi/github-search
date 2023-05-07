@@ -63,6 +63,19 @@ NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 └── package-lock.json
 ```
 
+# Testing
+
+This app is useing Cypress for unit tests:
+
+- To run these test run the following command:
+
+````sh
+npm run test
+```
+
+- Then click on E2E Testing and choose chrome
+- Click on start E2E Testing in Chrome
+
 # Technology Stack
 
 This app uses the following technologies:
@@ -90,3 +103,4 @@ For more information on deploying Next.js apps, see the Next.js documentation.
 This project was built using the new features of Next.js 13. If you are running a lower version of Next.js, you may encounter issues or missing functionality. Please ensure that you have upgraded to the latest version of Next.js before attempting to run this project.
 
 To upgrade Next.js, please follow the official documentation at https://nextjs.org/docs/upgrading.
+````

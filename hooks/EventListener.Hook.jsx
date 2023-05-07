@@ -17,4 +17,4 @@ const useEventListener = (eventName, handler, element, passiveDto) => {
     return () => element.removeEventListener(eventName, eventListener);
   }, [eventName, element, passiveDto]);
 };
-export { useEventListener };
+export default useEventListener;

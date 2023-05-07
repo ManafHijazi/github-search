@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { CircularProgress, FormHelperText } from '@mui/material';
+import { ButtonBase, CircularProgress, FormHelperText } from '@mui/material';
 import './Select.Style.scss';
 
 export const SelectComponent = ({
@@ -50,13 +50,11 @@ export const SelectComponent = ({
         (startAdornment && ' with-start-andorment') || ''
       }${value && (!emptyItem || value !== emptyItem.value) ? ' select-filled' : ''}${
         ((overInputText || overInputTextIcon) && ' over-input-text-wrapper') || ''
-      }`}
-    >
+      }`}>
       {labelValue && (
         <label
           htmlFor={idRef}
-          className={`label-wrapper ${labelClasses}${isDisabled ? ' disabled' : ''}`}
-        >
+          className={`label-wrapper ${labelClasses}${isDisabled ? ' disabled' : ''}`}>
           {labelValue}
         </label>
       )}
@@ -116,24 +114,22 @@ export const SelectComponent = ({
           required={isRequired}
           variant={variant}
           IconComponent={() => <span className='mdi mdi-chevron-down pr-2' />}
-          inputProps={{ readOnly: false }}
-        >
+          inputProps={{ readOnly: false }}>
           {emptyItem && (
             <MenuItem
               style={emptyItem.isHiddenOnOpen ? { display: 'none' } : {}}
               value={emptyItem.value}
-              disabled={emptyItem.isDisabled}
-            >
+              disabled={emptyItem.isDisabled}>
               {emptyItem.text}
             </MenuItem>
           )}
 
           {data.map((item, index) => (
             <MenuItem
-              style={item.isHiddenOnOpen ? { display: 'none' } : {}}
-              value={valueInput ? item[valueInput] : item}
               key={keyLoopBy && keyValue ? keyValue + item[keyLoopBy] : `selection${index + 1}`}
-            >
+              style={item.isHiddenOnOpen ? { display: 'none' } : {}}
+              className='type-select-option'
+              value={valueInput ? item[valueInput] : item}>
               <span className='menu-item-first-char'>
                 {`${(textInput ? item[textInput] : item).slice(0, 1)}`}
               </span>

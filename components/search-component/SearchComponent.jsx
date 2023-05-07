@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Error from '@/app/error';
-import { useEventListener } from '@/hooks';
+import useEventListener from '@/hooks/EventListener.Hook';
 import { Inputs } from '../Inputs-component/Inputs.Component';
 import { TablesComponent } from '../table-component/Tables.Component';
 import { SelectComponent } from '../select-component/Select.Component';
@@ -137,6 +137,8 @@ export const SearchComponent = ({ initSearchResults }) => {
         uniqueArr.map((item) => getForkedUsers(item.owner.login, item.name, item.id));
       }
     } else {
+      setIsLoading(false);
+
       throw new Error(
         (response && response.data && response.data.message) || 'An error has occured!'
       );
@@ -201,10 +203,11 @@ export const SearchComponent = ({ initSearchResults }) => {
       <div className='filter-wrapper'>
         <div className='input-search-wrapper'>
           <Inputs
-            idRef='searchInputId'
+            idRef='search-input'
             themeClass='theme-solid'
             value={localSearchValue}
             inputPlaceholder='Search'
+            wrapperClasses='search-input'
             onInputChanged={(event) => {
               const { value } = event.target;
 
@@ -230,6 +233,7 @@ export const SearchComponent = ({ initSearchResults }) => {
           <SelectComponent
             idRef='typeSelectId'
             themeClass='theme-solid'
+            wrapperClasses='search-type-select'
             data={
               [
                 { key: 'repositories', value: 'repositories' },

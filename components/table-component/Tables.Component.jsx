@@ -89,7 +89,7 @@ export const TablesComponent = memo(
         setCurrentOrderById(columnId);
         if (tableOptions.sortFrom === 2) sortColumnClicked(columnId, currentOrderDirection);
       },
-      [currentOrderDirection, tableOptions, sortColumnClicked],
+      [currentOrderDirection, tableOptions, sortColumnClicked]
     );
     const stableSort = (array, comparator) => {
       const stabilizedThis = array.map((el, index) => [el, index]);
@@ -106,9 +106,9 @@ export const TablesComponent = memo(
       (row) =>
         localSelectedRows.findIndex(
           (item) =>
-            getDataFromObject(row, uniqueKeyInput) === getDataFromObject(item, uniqueKeyInput),
+            getDataFromObject(row, uniqueKeyInput) === getDataFromObject(item, uniqueKeyInput)
         ),
-      [localSelectedRows, uniqueKeyInput],
+      [localSelectedRows, uniqueKeyInput]
     );
 
     const bodyRowClicked = useCallback((rowIndex, item) => {
@@ -117,7 +117,7 @@ export const TablesComponent = memo(
 
     const getSortDataName = () => {
       const currentHeader = (reorderedHeader || headerData).find(
-        (item) => item.id === currentOrderById,
+        (item) => item.id === currentOrderById
       );
       if (currentHeader) return currentHeader.input;
 
@@ -129,7 +129,7 @@ export const TablesComponent = memo(
         event.dataTransfer.setData('text', event.currentTarget.id);
         setCurrentDraggingColumn(index);
       },
-      [],
+      []
     );
 
     const onDragEndColumnHandler = useCallback(() => {
@@ -141,7 +141,7 @@ export const TablesComponent = memo(
         event.preventDefault();
         if (currentDragOverIndex !== index) setCurrentDragOverIndex(index);
       },
-      [currentDragOverIndex],
+      [currentDragOverIndex]
     );
 
     const onDropColumnHandler = useCallback(
@@ -154,7 +154,7 @@ export const TablesComponent = memo(
         if (onHeaderColumnsReorder) onHeaderColumnsReorder(localColumns);
         else setReorderedHeader(localColumns);
       },
-      [currentDraggingColumn, headerData, onHeaderColumnsReorder, reorderedHeader],
+      [currentDraggingColumn, headerData, onHeaderColumnsReorder, reorderedHeader]
     );
 
     const onResizeDownHandler = useCallback(
@@ -164,21 +164,21 @@ export const TablesComponent = memo(
         currentResizingColumnRef.current = document.querySelector(idRef);
         startResizePointRef.current = currentResizingColumnRef.current.offsetWidth - event.pageX;
       },
-      [],
+      []
     );
 
     const onActionClickedHandler = useCallback(
       (row, rowIndex) => (event) => {
         if (onActionClicked) onActionClicked(row, rowIndex, event);
       },
-      [onActionClicked],
+      [onActionClicked]
     );
 
     const onTableRowClickedHandler = useCallback(
       (row) => {
         if (onTableRowClicked) onTableRowClicked(row);
       },
-      [onTableRowClicked],
+      [onTableRowClicked]
     );
 
     useEffect(() => {
@@ -197,8 +197,7 @@ export const TablesComponent = memo(
             className='table-wrapper'
             aria-labelledby='tableTitle'
             size='medium' // 'small' or 'medium'
-            aria-label='enhanced table'
-          >
+            aria-label='enhanced table'>
             <TableHead>
               <TableRow>
                 {(reorderedHeader || headerData)
@@ -212,15 +211,13 @@ export const TablesComponent = memo(
                       onDragEnd={onDragEndColumnHandler}
                       onDrag={onDragColumnHandler(index)}
                       onDrop={onDropColumnHandler(index)}
-                      id={`${index + 1}-head-item`}
-                    >
+                      id={`${index + 1}-head-item`}>
                       {item.isSortable ? (
                         <TableSortLabel
                           IconComponent={() => <span className='mdi mdi-menu-swap c-gray' />}
                           active={currentOrderById === item.id}
                           direction={currentOrderById === item.id ? currentOrderDirection : 'desc'}
-                          onClick={createSortHandler(item.id)}
-                        >
+                          onClick={createSortHandler(item.id)}>
                           {(item.headerComponent && item.headerComponent(item, index)) ||
                             item.label}
                         </TableSortLabel>
@@ -230,8 +227,7 @@ export const TablesComponent = memo(
                       {(item.isResizable || isResizable) && (
                         <ButtonBase
                           className='resize-btn'
-                          onMouseDown={onResizeDownHandler(`#${headerRowRef}${index + 1}`)}
-                        >
+                          onMouseDown={onResizeDownHandler(`#${headerRowRef}${index + 1}`)}>
                           <span />
                         </ButtonBase>
                       )}
@@ -269,22 +265,20 @@ export const TablesComponent = memo(
                             bodyRowClicked(rowIndex, row);
                             onTableRowClickedHandler(row);
                           }}
-                          className={`${rowIndex === focusedRow ? 'table-row-overlay' : ''} ${
-                            disabledRow && disabledRow(row) ? 'is-disabled' : ''
-                          }`}
-                        >
+                          className={`table-row ${
+                            rowIndex === focusedRow ? 'table-row-overlay' : ''
+                          } ${disabledRow && disabledRow(row) ? 'is-disabled' : ''}`}>
                           {headerData.length > 0 &&
                             (reorderedHeader || headerData)
                               .filter((column) => !column.isHidden)
                               .map((column, columnIndex) => (
                                 <TableCell
                                   key={`bodyColumn${columnIndex * (pageIndex + 1) + rowIndex}`}
-                                  className={column.cellClasses || ''}
-                                >
+                                  className={column.cellClasses || ''}>
                                   {(column.isDate &&
                                     ((getDataFromObject(row, column.input) &&
                                       moment(getDataFromObject(row, column.input)).format(
-                                        column.dateFormat || tableOptions.dateFormat || dateFormat,
+                                        column.dateFormat || tableOptions.dateFormat || dateFormat
                                       )) ||
                                       '')) ||
                                     (column.component &&
@@ -297,8 +291,7 @@ export const TablesComponent = memo(
                               key={`bodyActionsColumn${rowIndex + 1}`}
                               className={`actions-cell-wrapper ${
                                 tableActionsOptions.cellClasses || ''
-                              }`}
-                            >
+                              }`}>
                               {(tableActionsOptions.component &&
                                 tableActionsOptions.component(row, rowIndex)) ||
                                 (tableActions &&
@@ -310,14 +303,13 @@ export const TablesComponent = memo(
                                           tableActionsOptions.getDisabledAction(
                                             row,
                                             rowIndex,
-                                            item,
+                                            item
                                           )) ||
                                         isDisabledActions
                                       }
                                       onClick={onActionClickedHandler(item, row, rowIndex)}
                                       key={`${item.key}-${rowIndex + 1}`}
-                                      className={`btns mx-1 theme-solid ${item.bgColor || ''}`}
-                                    >
+                                      className={`btns mx-1 theme-solid ${item.bgColor || ''}`}>
                                       <span className={item.icon} />
                                       {item.value}
                                     </ButtonBase>
@@ -328,7 +320,7 @@ export const TablesComponent = memo(
                         </TableRow>
                       </React.Fragment>
                     );
-                  },
+                  }
                 )}
               </TableBody>
             )}
@@ -349,5 +341,5 @@ export const TablesComponent = memo(
         {!isOriginalPagination && (onPageIndexChanged || onPageSizeChanged) && <>Pagination</>}
       </div>
     );
-  },
+  }
 );
