@@ -44,7 +44,7 @@ npm start
 
 Create a .env file in the root directory of the project and add the environment variables.
 
-( This step is optional if you want to prevent the time out request error to occure too much )
+( This step is optional if you want to prevent the time out request error from occurring too much )
 
 Example:
 
@@ -60,6 +60,7 @@ NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 
 ```sh
 ├── components          # React components used throughout the app
+├── cypress             # Unit tests for the components of the app
 ├── app                 # Next.js pages
 │   ├── layout.jsx      # Custom App component
 │   ├── error.jsx       # Custom Error Handling component
@@ -72,6 +73,7 @@ NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 ├── .env                # Local environment variables
 ├── .gitignore
 ├── next.config.js      # Next.js configuration
+├── cypress.config.js   # Cypress configuration
 ├── package.json
 ├── README.md
 └── package-lock.json
@@ -81,7 +83,7 @@ NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 
 This app is useing Cypress for unit tests:
 
-- To run these test run the following command:
+- To run these tests run the following command:
 
 ```sh
 npm run test
