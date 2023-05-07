@@ -2,7 +2,7 @@
 
 This is a simple web application built with Next.js.
 
-- ***To view a live demo: (https://seeragithubsearch.vercel.app)***
+- ***To view a live demo: https://seeragithubsearch.vercel.app***
 
 ![Tux, the Linux mascot](/public/favicon.ico)
 
