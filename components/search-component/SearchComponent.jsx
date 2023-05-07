@@ -90,7 +90,7 @@ export const SearchComponent = ({ initSearchResults }) => {
 
       if (localSearchValue)
         setSearchResults((results) => {
-          const grouppedArr = [...searchResults.items, ...data.items];
+          const grouppedArr = [...results.items, ...data.items];
 
           const uniqueArr = grouppedArr.filter(
             (value, index, self) => index === self.findIndex((t) => t.id === value.id)
@@ -106,7 +106,7 @@ export const SearchComponent = ({ initSearchResults }) => {
       else
         setSearchResults((results) => {
           const grouppedArr = [
-            ...searchResults.items,
+            ...results.items,
             ...JSON.parse(initSearchResults.items),
             ...data.items,
           ];
