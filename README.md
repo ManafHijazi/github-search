@@ -30,7 +30,7 @@ This will start the app at http://localhost:3000.
 
 Create a .env file in the root directory of the project and add the environment variables.
 
-(This step is optional if you want to prevent the time out request error to occure too much )
+( This step is optional if you want to prevent the time out request error to occure too much )
 
 Example:
 
