@@ -94,7 +94,8 @@ npm run test
 This app uses the following technologies:
 
 - Next.js - A framework for building React applications.
-- React - A JavaScript library for building user interfaces.
+- React.js - A JavaScript library for building user interfaces.
+- Cypress - A JavaScript library for unit tests.
 
 # Customization
 
