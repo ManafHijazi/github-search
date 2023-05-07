@@ -110,7 +110,3 @@ For more information on deploying Next.js apps, see the Next.js documentation.
 This project was built using the new features of Next.js 13. If you are running a lower version of Next.js, you may encounter issues or missing functionality. Please ensure that you have upgraded to the latest version of Next.js before attempting to run this project.
 
 To upgrade Next.js, please follow the official documentation at https://nextjs.org/docs/upgrading.
-
-```
-
-```
