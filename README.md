@@ -29,6 +29,11 @@ npm run build
 ```
 
 - Run npm start to start the production server.
+
+```sh
+npm start
+```
+
 - Navigate to http://localhost:3000 to view the app.
 
 # Environment Variables
@@ -77,9 +82,6 @@ This app is useing Cypress for unit tests:
 ```sh
 npm run test
 ```
-
-- Then click on E2E Testing and choose chrome
-- Click on start E2E Testing in Chrome
 
 # Technology Stack
 
