@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Error from '@/app/error';
 import useEventListener from '@/hooks/EventListener.Hook';
 import { Inputs } from '../Inputs-component/Inputs.Component';
 import { TablesComponent } from '../table-component/Tables.Component';
@@ -21,7 +20,9 @@ export const SearchComponent = ({ initSearchResults }) => {
   const [timer, setTimer] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [forkedUsers, setForkedUsers] = useState([]);
+  const [isFirstLoad, setIsFirstLoad] = useState(false);
   const [localSearchValue, setLocalSearchValue] = useState('');
   const [searchType, setSearchType] = useState('repositories');
   const [searchResults, setSearchResults] = useState({
@@ -46,6 +47,7 @@ export const SearchComponent = ({ initSearchResults }) => {
 
     if (response && response.data && response.status === 200) {
       const { data } = response;
+      setShowError(false);
 
       const localForkedUsers = data.map((item) => ({
         id: repoId,
@@ -66,9 +68,12 @@ export const SearchComponent = ({ initSearchResults }) => {
 
         return [...items].flat();
       });
-    }
 
-    setIsLoading(false);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+      setShowError(true);
+    }
   }, []);
 
   /**
@@ -87,48 +92,25 @@ export const SearchComponent = ({ initSearchResults }) => {
 
     if (response && response.data && response.status === 200) {
       const { data } = response;
+      setShowError(false);
 
-      if (localSearchValue)
-        setSearchResults((results) => {
-          const grouppedArr = [...results.items, ...data.items];
+      setSearchResults((results) => {
+        const grouppedArr = [...results.items, ...data.items];
 
-          const uniqueArr = grouppedArr.filter(
-            (value, index, self) => index === self.findIndex((t) => t.id === value.id)
-          );
+        const uniqueArr = grouppedArr.filter(
+          (value, index, self) => index === self.findIndex((t) => t.id === value.id)
+        );
 
-          return {
-            ...results,
-            isLoaded: true,
-            total_count: data.total_count,
-            items: uniqueArr,
-          };
-        });
-      else
-        setSearchResults((results) => {
-          const grouppedArr = [
-            ...results.items,
-            ...JSON.parse(initSearchResults.items),
-            ...data.items,
-          ];
-
-          const uniqueArr = grouppedArr.filter(
-            (value, index, self) => index === self.findIndex((t) => t.id === value.id)
-          );
-
-          return {
-            ...results,
-            isLoaded: true,
-            total_count: data.total_count,
-            items: uniqueArr,
-          };
-        });
+        return {
+          ...results,
+          isLoaded: true,
+          total_count: data.total_count,
+          items: uniqueArr,
+        };
+      });
 
       if (searchType === 'repositories') {
-        const grouppedArr = [
-          ...searchResults.items,
-          ...JSON.parse(initSearchResults.items),
-          ...data.items,
-        ];
+        const grouppedArr = [...searchResults.items, ...data.items];
 
         const uniqueArr = grouppedArr.filter(
           (value, index, self) => index === self.findIndex((t) => t.id === value.id)
@@ -138,14 +120,12 @@ export const SearchComponent = ({ initSearchResults }) => {
       }
     } else {
       setIsLoading(false);
-
-      throw new Error(
-        (response && response.data && response.data.message) || 'An error has occured!'
-      );
+      setShowError(true);
+      setSearchResults({ items: [], total_count: 1, isLoaded: true });
     }
 
     if (searchType === 'users') setIsLoading(false);
-  }, [searchType, searchTerm, filter, initSearchResults, localSearchValue]);
+  }, [searchType, searchTerm, filter, initSearchResults]);
 
   /**
    * A callback function that handles the 'scroll' event and loads more search results if the user has scrolled to the bottom of the page.
@@ -178,25 +158,20 @@ export const SearchComponent = ({ initSearchResults }) => {
    * @returns {void}
    */
   useEffect(() => {
-    if (searchTerm) githubSearchService();
-  }, [searchTerm, githubSearchService]);
+    if (searchTerm || isFirstLoad) githubSearchService();
+  }, [searchTerm, githubSearchService, isFirstLoad]);
 
   /**
    * A side effect that fetches the users who have forked a repository from Github's API when the component is loaded.
    * @returns {void}
    */
   useEffect(() => {
-    if (
-      initSearchResults &&
-      initSearchResults.items &&
-      searchResults.items.length === 0 &&
-      searchType === 'repositories'
-    ) {
+    if (initSearchResults && initSearchResults.items && searchType === 'repositories') {
       JSON.parse(initSearchResults.items).map((item) => {
         getForkedUsers(item.owner.login, item.name, item.id);
       });
     }
-  }, [initSearchResults, searchType, searchResults]);
+  }, [initSearchResults, searchType]);
 
   return (
     <div className='search-wrapper'>
@@ -215,12 +190,13 @@ export const SearchComponent = ({ initSearchResults }) => {
               clearTimeout(timer);
 
               const newTimer = setTimeout(() => {
-                setSearchResults((results) => ({
-                  ...results,
-                  isLoaded: true,
-                  total_count: 1,
-                  items: [],
-                }));
+                setIsLoading(true);
+                setIsFirstLoad(true);
+
+                if (value === '' || searchType === 'repositories') {
+                  setSearchResults({ items: [], total_count: 1, isLoaded: false });
+                  setShowError(true);
+                } else setSearchResults({ items: [], total_count: 1, isLoaded: true });
 
                 setForkedUsers([]);
 
@@ -248,6 +224,7 @@ export const SearchComponent = ({ initSearchResults }) => {
             onSelectChanged={(newValue) => {
               setForkedUsers([]);
               setSearchResults({ items: [], total_count: 1, isLoaded: true });
+              setShowError(true);
               setSearchType(newValue);
             }}
           />
@@ -289,7 +266,11 @@ export const SearchComponent = ({ initSearchResults }) => {
                         <div className='user' key={`${item.id}-${index + 1}-user`}>
                           <ButtonBase>
                             <a target='_blank' href={item.forksUrl}>
-                              <Avatar sizes='small' alt={item.name} src={item.avatar} />
+                              <Avatar
+                                alt={item.name}
+                                src={item.avatar}
+                                sx={{ width: 50, height: 50 }}
+                              />
                             </a>
                           </ButtonBase>
 
@@ -305,14 +286,14 @@ export const SearchComponent = ({ initSearchResults }) => {
           pageIndex={filter.page - 1}
           pageSize={filter.page || 0}
           data={
-            (searchResults && searchResults.items && searchResults.items.length > 0
+            (searchResults.isLoaded || showError
               ? searchResults.items
               : initSearchResults &&
                 initSearchResults.items &&
                 JSON.parse(initSearchResults.items)) || []
           }
           totalItems={
-            (searchResults && searchResults.items && searchResults.items.length > 0
+            (searchResults.isLoaded || showError
               ? searchResults.total_count
               : initSearchResults && initSearchResults.total_count) || 0
           }
@@ -327,7 +308,7 @@ export const SearchComponent = ({ initSearchResults }) => {
               input: 'login',
               component: (row) => (
                 <div className='user'>
-                  <Avatar sizes='small' alt={row.name} src={row.avatar_url} />
+                  <Avatar alt={row.name} src={row.avatar_url} sx={{ width: 50, height: 50 }} />
                   <Tooltip title={row.login}>
                     <div className='name'>{row.login}</div>
                   </Tooltip>
@@ -346,7 +327,7 @@ export const SearchComponent = ({ initSearchResults }) => {
             (searchResults &&
               searchResults.items &&
               searchResults.items.length > 0 &&
-              searchResults.items) ||
+              searchResults.items.filter((item) => item.login)) ||
             []
           }
           totalItems={
@@ -375,19 +356,9 @@ export const SearchComponent = ({ initSearchResults }) => {
         />
       )}
 
-      {initSearchResults &&
-        initSearchResults.items &&
-        JSON.parse(initSearchResults.items).length === 0 && (
-          <div className='no-data-wrapper'>No results found, please try again</div>
-        )}
-
-      {initSearchResults &&
-        initSearchResults.items &&
-        JSON.parse(initSearchResults.items).length > 0 &&
-        searchResults.isLoaded &&
-        searchResults.items.length === 0 && (
-          <div className='no-data-wrapper'>No results found, please try again</div>
-        )}
+      {showError && !isLoading && (
+        <div className='no-data-wrapper'>No results found, please try again</div>
+      )}
     </div>
   );
 };
