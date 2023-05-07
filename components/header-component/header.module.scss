@@ -1,0 +1,21 @@
+@import '../../styles/Master.Style.scss';
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  width: 100%;
+  height: 4rem;
+  background-color: #1f252c;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: $ff-bold;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.logo {
+  margin-right: 1rem;
+}

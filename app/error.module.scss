@@ -1,0 +1,25 @@
+@import '../styles/Helpers/Helpers.Style.scss';
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(255, 230, 230, 0.12);
+  backdrop-filter: saturate(150%) blur(2px);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: $c-danger;
+  width: 30%;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: bold;
+  font-family: $ff-bold;
+  padding: 1rem;
+}

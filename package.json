@@ -1,0 +1,27 @@
+{
+  "name": "github-search",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mdi/font": "^7.2.96",
+    "@mui/material": "^5.12.3",
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.1",
+    "moment": "^2.29.4",
+    "next": "13.4.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-virtualized": "^9.22.5",
+    "sass": "^1.62.1"
+  }
+}

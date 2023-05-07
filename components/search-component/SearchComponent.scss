@@ -1,0 +1,66 @@
+@import '../../styles/Master.Style.scss';
+
+.search-wrapper {
+  .filter-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .input-search-wrapper {
+      width: 50%;
+      padding-left: 1rem;
+      padding-bottom: 1rem;
+      display: flex;
+      align-items: center;
+
+      .input-wrapper {
+        margin-right: 1rem;
+      }
+    }
+
+    .loading-wrapper {
+      width: 50%;
+      padding-left: 2rem;
+      margin-top: -1rem;
+    }
+  }
+
+  .no-data-wrapper {
+    font-size: 14px;
+    font-weight: bold;
+    font-family: $ff-bold;
+    padding-left: 2rem;
+    color: $c-primary;
+  }
+
+  .language-badge {
+    border-radius: 1rem;
+    background-color: rgb(208, 0, 0);
+    color: white;
+    padding: 0.5rem 1rem;
+    max-width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .users-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .user {
+    min-width: 12rem;
+    display: flex;
+    align-items: center;
+
+    .name {
+      font-size: 12px;
+      margin-left: 1rem;
+      width: 5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
