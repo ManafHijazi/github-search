@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /_next/
+Disallow: /api/
+Sitemap: https://example.com/sitemap.xml
