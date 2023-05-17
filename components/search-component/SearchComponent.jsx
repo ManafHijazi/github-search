@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import useEventListener from '@/hooks/EventListener.Hook';
 import { Inputs } from '../Inputs-component/Inputs.Component';
 import { TablesComponent } from '../table-component/Tables.Component';
@@ -231,6 +232,15 @@ export const SearchComponent = ({ initSearchResults }) => {
         </div>
         <div className='loading-wrapper'>
           {isLoading && <CircularProgress color='inherit' size={35} />}
+        </div>
+
+        <div className='mr-2'>
+          <Link href='/react-flow'>
+            <ButtonBase onClick={() => {}} className='btns theme-solid'>
+              Flow Page
+              <span className='mdi mdi-chevron-double-right pl-2' />
+            </ButtonBase>
+          </Link>
         </div>
       </div>
 
