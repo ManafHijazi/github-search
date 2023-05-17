@@ -2,6 +2,10 @@
 
 This is a simple web application built with Next.js.
 
+- ***To view a live demo: https://seeragithubsearch.vercel.app***
+
+![Tux, the Linux mascot](/public/favicon.ico)
+
 # Getting Started
 
 First, clone the repository and install the dependencies:
@@ -40,7 +44,7 @@ npm start
 
 Create a .env file in the root directory of the project and add the environment variables.
 
-( This step is optional if you want to prevent the time out request error to occure too much )
+( This step is optional if you want to prevent the time out request error from occurring too much )
 
 Example:
 
@@ -56,6 +60,7 @@ NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 
 ```sh
 ├── components          # React components used throughout the app
+├── cypress             # Unit tests for the components of the app
 ├── app                 # Next.js pages
 │   ├── layout.jsx      # Custom App component
 │   ├── error.jsx       # Custom Error Handling component
@@ -68,6 +73,7 @@ NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 ├── .env                # Local environment variables
 ├── .gitignore
 ├── next.config.js      # Next.js configuration
+├── cypress.config.js   # Cypress configuration
 ├── package.json
 ├── README.md
 └── package-lock.json
@@ -75,9 +81,9 @@ NEXT_PUBLIC_GITHUB_TOKEN=YOUR_TOKEN
 
 # Testing
 
-This app is useing Cypress for unit tests:
+This app is using Cypress for unit tests:
 
-- To run these test run the following command:
+- To run these tests run the following command:
 
 ```sh
 npm run test
@@ -88,7 +94,8 @@ npm run test
 This app uses the following technologies:
 
 - Next.js - A framework for building React applications.
-- React - A JavaScript library for building user interfaces.
+- React.js - A JavaScript library for building user interfaces.
+- Cypress - A JavaScript library for unit tests.
 
 # Customization
 
